@@ -8,11 +8,11 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import org.apache.http.HttpStatus;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
+import javax.ws.rs.core.Response;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.net.http.HttpClient;
@@ -87,7 +87,7 @@ public class ConsumedUserServiceClient {
 
         final HttpResponse<?> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
-        if (response.statusCode() == HttpStatus.SC_OK) {
+        if (response.statusCode() == Response.Status.OK.getStatusCode()) {
             final JsonNode jsonNode = getObjectMapper().readTree(response.body().toString());
             oauthToken = jsonNode.get("access_token").asText();
         }
