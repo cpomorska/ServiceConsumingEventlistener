@@ -12,11 +12,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ServiceConsumingEventListenerFactoryTest extends AbstractEventListenerTest {
 
     @Test
-    void initializeTheEventlistenerFactoryAndCreateTheEventListener() {
+    void initializeTheEventListenerFactoryAndCreateTheEventListener() {
+        // given
         serviceConsumingEventListenerProviderFactory.init(scope);
+
+        // when
         serviceConsumingEventlistener = (ServiceConsumingEventListener) serviceConsumingEventListenerProviderFactory.create(session);
         EventListenerConfig eventListenerConfig = serviceConsumingEventlistener.getEventListenerConfig();
 
+        // then
         assertThat(this.getServiceConsumingEventlistener()).isInstanceOf(ServiceConsumingEventListener.class);
         assertThat(eventListenerConfig).isNotNull();
         assertThat(eventListenerConfig.getUserName()).isNotNull();
@@ -27,7 +31,10 @@ class ServiceConsumingEventListenerFactoryTest extends AbstractEventListenerTest
 
     @Test
     void getTheIdStringFromEventListener() {
+        // when
         String result = serviceConsumingEventListenerProviderFactory.getId();
+
+        // then
         assertThat(result).isEqualTo(EventListenerConstants.EVENTLISTENER_NAME);
     }
 }

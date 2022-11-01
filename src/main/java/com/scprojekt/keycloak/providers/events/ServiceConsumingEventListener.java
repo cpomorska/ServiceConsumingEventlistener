@@ -48,7 +48,7 @@ public class ServiceConsumingEventListener implements EventListenerProvider {
     }
 
     @Override
-    public void onEvent(Event event) {
+    public void  onEvent(Event event) {
 
         if (event.getType().equals(EventType.IDENTITY_PROVIDER_FIRST_LOGIN)) {
             LOGGER.info("Event " + event.getType().toString() + " occured");

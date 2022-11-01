@@ -27,8 +27,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
 class ServiceConsumingEventListenerTest extends AbstractEventListenerTest {
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     @Mock(answer = Answers.RETURNS_DEEP_STUBS)
     KeycloakSession session;
     @Mock
@@ -36,8 +36,6 @@ class ServiceConsumingEventListenerTest extends AbstractEventListenerTest {
     @Spy
     @InjectMocks
     ServiceConsumingEventListenerProviderFactory serviceConsumingEventListenerProviderFactory;
-
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     @RegisterExtension
     static WireMockExtension wireMockExtension = WireMockExtension.newInstance()
@@ -56,29 +54,37 @@ class ServiceConsumingEventListenerTest extends AbstractEventListenerTest {
 
     @Test
     void shouldReactToIdentityProviderFirstLoginEventTokenFound() {
+        // given
         String userId = createUserId();
         Event testEvent = this.createEvent(EventType.IDENTITY_PROVIDER_FIRST_LOGIN);
         stubFor(post(TestConstants.WIREMOCK_USERSERVICE).withHost(equalTo(TestConstants.WIREMOCK_LOCALHOST)).willReturn(ok(createUserServiceToken(Requeststatus.TOKEN_FOUND, userId))));
 
+        // when
         serviceConsumingEventlistener.onEvent(testEvent);
-
         UserModel result = session.users().getUserById(session.realms().getRealm(TestConstants.TEST_REALM), testEvent.getUserId());
+
+        // then
         assertThat(result).isNotNull();
     }
 
     @Test
     void shouldReactToIdentityProviderFirstLoginEventTokenNotFound() {
-        String userId = createUserId();
+        // given
         Event testEvent = this.createEvent(EventType.IDENTITY_PROVIDER_FIRST_LOGIN);
         stubFor(post(TestConstants.WIREMOCK_USERSERVICE).withHost(equalTo(TestConstants.WIREMOCK_LOCALHOST)).willReturn(ok(createUserServiceToken(Requeststatus.TOKEN_ERROR, ""))));
 
+        // when
         serviceConsumingEventlistener.onEvent(testEvent);
         UserModel result = session.users().getUserById(session.realms().getRealm(TestConstants.TEST_REALM), testEvent.getUserId());
+
+        // then
         assertThat(result).isNotNull();
     }
 
     @Test
-    void onAdminEventTest() {
+    void whenOnAdminEventIsCalledTheKeycloakSessionIsNotNull() {
+        // given - called in init()
+        // then
         assertNotNull(session, "Session should not be null");
     }
 

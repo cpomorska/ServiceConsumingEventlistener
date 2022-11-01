@@ -30,17 +30,14 @@ public class ConsumedUserService {
 
     private final ConsumedUserServiceClient consumedUserServiceClient;
 
-    @SneakyThrows
     public UserServiceToken getUserServiceToken(ServiceUser serviceUser){
         return getUserServiceToken(serviceUser, null);
     }
 
-    @SneakyThrows
     public UserServiceToken getUserServiceToken(ServiceUser serviceUser, String referenceNumber){
         return getUserServiceTokenWithReferenceNumber(serviceUser, referenceNumber);
     }
 
-    @SneakyThrows
     private UserServiceToken getUserServiceTokenWithReferenceNumber(ServiceUser serviceUser, String referenceNumber) {
         Map<String, String> postParameters = new HashMap<>();
         postParameters.put(EventListenerConstants.FIELD_SERVICE_USER, EventListenerHelper.serializeObjectToString(serviceUser));
@@ -54,6 +51,7 @@ public class ConsumedUserService {
 
         String form = postParameters.entrySet()
                 .stream()
+                .filter(e -> e.getValue() != null)
                 .map(e -> e.getKey() + "=" + URLEncoder.encode(e.getValue(), StandardCharsets.UTF_8))
                 .collect(Collectors.joining("&"));
 
