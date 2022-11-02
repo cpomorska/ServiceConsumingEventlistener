@@ -10,11 +10,11 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.java.version>11</project.java.version>
+        <project.java.version>17</project.java.version>
         <maven.compiler.release>${project.java.version}</maven.compiler.release>
         <maven.compiler.source>${project.java.version}</maven.compiler.source>
         <maven.compiler.target>${project.java.version}</maven.compiler.target>
-        <keycloak.version>19.0.3</keycloak.version>
+        <keycloak.version>20.0.0</keycloak.version>
         <lombok.version>1.18.22</lombok.version>
         <junit.version>5.8.2</junit.version>
         <mockito.version>4.5.1</mockito.version>
