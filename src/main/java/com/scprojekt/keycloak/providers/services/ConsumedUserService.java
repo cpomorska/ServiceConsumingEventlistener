@@ -4,7 +4,7 @@ import com.scprojekt.keycloak.providers.domain.Requeststatus;
 import com.scprojekt.keycloak.providers.domain.ServiceUser;
 import com.scprojekt.keycloak.providers.domain.UserServiceToken;
 import com.scprojekt.keycloak.providers.events.EventListenerConstants;
-import com.scprojekt.keycloak.providers.util.EventListenerHelper;
+import com.scprojekt.keycloak.providers.events.EventListenerHelper;
 import jakarta.inject.Inject;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -63,21 +63,19 @@ public class ConsumedUserService {
     }
 
     private HttpRequest createHttpRequest(String serviceUri, Map<String, String> postParameters) {
-        HttpRequest request = HttpRequest.newBuilder()
+        return HttpRequest.newBuilder()
                 .POST(HttpRequest.BodyPublishers.ofString(getUrlParameterFormEncodedFromPostParameterMap(postParameters)))
                 .uri(URI.create(serviceUri))
                 .header(AUTHORIZATION, consumedUserServiceClient.getAuthorizationHeader())
                 .header(CONTENT_TYPE, MediaType.APPLICATION_JSON)
                 .build();
-        return request;
     }
 
     private static String getUrlParameterFormEncodedFromPostParameterMap(Map<String, String> postParameters) {
-        String urlFormToEncode = postParameters.entrySet()
+        return postParameters.entrySet()
                 .stream()
                 .filter(e -> e.getValue() != null)
                 .map(e -> e.getKey() + EQUALS_STRING + URLEncoder.encode(e.getValue(), StandardCharsets.UTF_8))
                 .collect(Collectors.joining(AMPERSAND_STRING));
-        return urlFormToEncode;
     }
 }
