@@ -10,10 +10,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
 class ServiceConsumingEventListenerFactoryTest extends AbstractEventListenerTest {
-
     @Test
     void initializeTheEventListenerFactoryAndCreateTheEventListener() {
         // given
+        createTestEventConfig();
         serviceConsumingEventListenerProviderFactory.init(scope);
 
         // when

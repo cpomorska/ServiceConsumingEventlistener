@@ -9,22 +9,22 @@ import com.scprojekt.keycloak.providers.domain.UserServiceToken;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.keycloak.Config;
 import org.keycloak.events.Event;
 import org.keycloak.events.EventType;
 import org.keycloak.models.KeycloakSession;
 import org.keycloak.models.UserModel;
-import org.mockito.*;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.Answers;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Spy;
 
 import java.util.UUID;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 class ServiceConsumingEventListenerTest extends AbstractEventListenerTest {
@@ -46,7 +46,7 @@ class ServiceConsumingEventListenerTest extends AbstractEventListenerTest {
     private ServiceConsumingEventListener serviceConsumingEventlistener;
 
     @BeforeEach
-    public void init() {
+    void setup() {
         createTestEventConfig();
         serviceConsumingEventListenerProviderFactory.init(scope);
         serviceConsumingEventlistener = (ServiceConsumingEventListener) serviceConsumingEventListenerProviderFactory.create(session);
@@ -85,7 +85,7 @@ class ServiceConsumingEventListenerTest extends AbstractEventListenerTest {
     void whenOnAdminEventIsCalledTheKeycloakSessionIsNotNull() {
         // given - called in init()
         // then
-        assertNotNull(session, "Session should not be null");
+        assertThat(session).withFailMessage("Session should not be null").isNotNull();
     }
 
     private String createUserId(){
@@ -100,7 +100,7 @@ class ServiceConsumingEventListenerTest extends AbstractEventListenerTest {
                 .build());
     }
 
-    private void createTestEventConfig() {
+    public void createTestEventConfig() {
         when(scope.get(EventListenerConstants.CONFIG_SERVICE_URI, "")).thenReturn(TestConstants.LOCALHOST_USERSERVICE);
         when(scope.get(EventListenerConstants.CONFIG_ENDPOINT_URI, "")).thenReturn(TestConstants.LOCALHOST_TOKENSERVICE);
         when(scope.get(EventListenerConstants.CONFIG_USERNAME, "")).thenReturn(TestConstants.USER);
