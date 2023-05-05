@@ -83,7 +83,7 @@ class ServiceConsumingEventListenerTest extends AbstractEventListenerTest {
 
     @Test
     void whenOnAdminEventIsCalledTheKeycloakSessionIsNotNull() {
-        // given - called in init()
+        // given - called in setup()
         // then
         assertThat(session).withFailMessage("Session should not be null").isNotNull();
     }

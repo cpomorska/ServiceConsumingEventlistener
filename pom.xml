@@ -14,14 +14,14 @@
         <maven.compiler.release>${project.java.version}</maven.compiler.release>
         <maven.compiler.source>${project.java.version}</maven.compiler.source>
         <maven.compiler.target>${project.java.version}</maven.compiler.target>
-        <keycloak.version>21.0.2</keycloak.version>
-        <lombok.version>1.18.22</lombok.version>
+        <keycloak.version>21.1.1</keycloak.version>
+        <lombok.version>1.18.26</lombok.version>
         <junit.version>5.8.2</junit.version>
-        <mockito.version>4.5.1</mockito.version>
-        <jacoco.version>0.8.8</jacoco.version>
-        <surefire.version>3.0.0-M7</surefire.version>
-        <assertj.version>3.23.1</assertj.version>
-        <wiremock.version>3.0.0-beta-2</wiremock.version>
+        <mockito.version>5.3.1</mockito.version>
+        <jacoco.version>0.8.9</jacoco.version>
+        <surefire.version>3.0.0</surefire.version>
+        <assertj.version>3.24.2</assertj.version>
+        <wiremock.version>3.0.0-beta-8</wiremock.version>
     </properties>
 
     <dependencies>

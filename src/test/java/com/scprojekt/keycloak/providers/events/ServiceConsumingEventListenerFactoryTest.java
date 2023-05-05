@@ -21,8 +21,8 @@ class ServiceConsumingEventListenerFactoryTest extends AbstractEventListenerTest
         EventListenerConfig eventListenerConfig = serviceConsumingEventlistener.getEventListenerConfig();
 
         // then
-        assertThat(this.getServiceConsumingEventlistener()).isInstanceOf(ServiceConsumingEventListener.class);
         assertThat(eventListenerConfig).isNotNull();
+        assertThat(this.getServiceConsumingEventlistener()).isInstanceOf(ServiceConsumingEventListener.class);
         assertThat(eventListenerConfig.getUserName()).isNotNull();
         assertThat(eventListenerConfig.getPassWord()).isNotNull();
         assertThat(eventListenerConfig.getServiceUri()).isNotNull();
