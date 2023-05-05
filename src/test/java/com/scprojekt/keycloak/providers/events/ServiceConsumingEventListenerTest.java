@@ -39,7 +39,7 @@ class ServiceConsumingEventListenerTest extends AbstractEventListenerTest {
 
     @RegisterExtension
     static WireMockExtension wireMockExtension = WireMockExtension.newInstance()
-            .options(wireMockConfig().httpsPort(443))
+            .options(wireMockConfig().dynamicPort().dynamicHttpsPort())
             .configureStaticDsl(true)
             .build();
 
@@ -57,7 +57,7 @@ class ServiceConsumingEventListenerTest extends AbstractEventListenerTest {
         // given
         String userId = createUserId();
         Event testEvent = this.createEvent(EventType.IDENTITY_PROVIDER_FIRST_LOGIN);
-        stubFor(post(TestConstants.WIREMOCK_USERSERVICE).withHost(equalTo(TestConstants.WIREMOCK_LOCALHOST)).willReturn(ok(createUserServiceToken(Requeststatus.TOKEN_FOUND, userId))));
+        stubFor(post(TestConstants.WIREMOCK_USERSERVICE).withHost(equalTo(TestConstants.WIREMOCK_LOCALHOST)).withPort(wireMockExtension.getHttpsPort()).willReturn(ok(createUserServiceToken(Requeststatus.TOKEN_FOUND, userId))));
 
         // when
         serviceConsumingEventlistener.onEvent(testEvent);
@@ -71,7 +71,7 @@ class ServiceConsumingEventListenerTest extends AbstractEventListenerTest {
     void shouldReactToIdentityProviderFirstLoginEventTokenNotFound() {
         // given
         Event testEvent = this.createEvent(EventType.IDENTITY_PROVIDER_FIRST_LOGIN);
-        stubFor(post(TestConstants.WIREMOCK_USERSERVICE).withHost(equalTo(TestConstants.WIREMOCK_LOCALHOST)).willReturn(ok(createUserServiceToken(Requeststatus.TOKEN_ERROR, ""))));
+        stubFor(post(TestConstants.WIREMOCK_USERSERVICE).withHost(equalTo(TestConstants.WIREMOCK_LOCALHOST +":"+ wireMockExtension.getHttpsPort())).willReturn(ok(createUserServiceToken(Requeststatus.TOKEN_ERROR, ""))));
 
         // when
         serviceConsumingEventlistener.onEvent(testEvent);
@@ -101,7 +101,7 @@ class ServiceConsumingEventListenerTest extends AbstractEventListenerTest {
     }
 
     public void createTestEventConfig() {
-        when(scope.get(EventListenerConstants.CONFIG_SERVICE_URI, "")).thenReturn(TestConstants.LOCALHOST_USERSERVICE);
+        when(scope.get(EventListenerConstants.CONFIG_SERVICE_URI, "")).thenReturn("https://localhost:"+wireMockExtension.getHttpsPort() +"/userservice");
         when(scope.get(EventListenerConstants.CONFIG_ENDPOINT_URI, "")).thenReturn(TestConstants.LOCALHOST_TOKENSERVICE);
         when(scope.get(EventListenerConstants.CONFIG_USERNAME, "")).thenReturn(TestConstants.USER);
         when(scope.get(EventListenerConstants.CONFIG_PASSWORD, "")).thenReturn(TestConstants.PASSWORD);
