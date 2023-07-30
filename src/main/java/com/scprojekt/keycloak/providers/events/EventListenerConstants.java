@@ -2,9 +2,20 @@ package com.scprojekt.keycloak.providers.events;
 
 public class EventListenerConstants {
 
+
+
     /* Sonar */
     private EventListenerConstants(){}
 
+    /* Services*/
+    public static final String ACCESS_TOKEN = "access_token";
+    public static final String HEADER_ACCEPT = "Accept";
+    public static final String HEADER_CONTENT_TYPE = "Content-Type";
+    public static final String APPLICATION_JSON = "application/json";
+    public static final String X_WWW_FORM_URLENCODED = "application/x-www-form-urlencoded";
+    public static final String DISABLE_HOSTNAME_VERIFICATION = "jdk.internal.httpclient.disableHostnameVerification";
+
+    /* Keycloak */
     public static final String EXCLUDE_EVENTS = "exclude-events";
     public static final String EXCLUDE_OPERATIONS = "excludesOperations";
     public static final String EVENTLISTENER_NAME = "serviceconsuming-eventlistener-provider";

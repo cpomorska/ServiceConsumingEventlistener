@@ -6,12 +6,12 @@ import com.scprojekt.keycloak.providers.domain.UserServiceToken;
 import com.scprojekt.keycloak.providers.events.EventListenerConstants;
 import com.scprojekt.keycloak.providers.events.EventListenerHelper;
 import jakarta.inject.Inject;
+import jakarta.ws.rs.core.MediaType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.apache.http.HttpStatus;
 
-import javax.ws.rs.core.MediaType;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.net.http.HttpRequest;
@@ -21,8 +21,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
-import static javax.ws.rs.core.HttpHeaders.CONTENT_TYPE;
+import static jakarta.ws.rs.core.HttpHeaders.AUTHORIZATION;
+import static jakarta.ws.rs.core.HttpHeaders.CONTENT_TYPE;
 
 
 @Getter

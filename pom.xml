@@ -14,21 +14,21 @@
         <maven.compiler.release>${project.java.version}</maven.compiler.release>
         <maven.compiler.source>${project.java.version}</maven.compiler.source>
         <maven.compiler.target>${project.java.version}</maven.compiler.target>
-        <keycloak.version>21.1.1</keycloak.version>
+        <keycloak.version>22.0.0</keycloak.version>
         <lombok.version>1.18.26</lombok.version>
-        <junit.version>5.8.2</junit.version>
+        <junit.version>5.9.3</junit.version>
         <mockito.version>5.3.1</mockito.version>
         <jacoco.version>0.8.9</jacoco.version>
         <surefire.version>3.0.0</surefire.version>
         <assertj.version>3.24.2</assertj.version>
-        <wiremock.version>3.0.0-beta-8</wiremock.version>
+        <wiremock.version>3.0.0-beta-10</wiremock.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
-            <version>3.0.1</version>
+            <version>4.0.1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -83,6 +83,12 @@
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
             <version>${assertj.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.dasniko</groupId>
+            <artifactId>testcontainers-keycloak</artifactId>
+            <version>3.0.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
