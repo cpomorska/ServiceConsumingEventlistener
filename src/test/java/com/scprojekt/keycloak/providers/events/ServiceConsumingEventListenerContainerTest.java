@@ -4,16 +4,24 @@ import dasniko.testcontainers.keycloak.KeycloakContainer;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 
 class ServiceConsumingEventListenerContainerTest {
+    private static KeycloakContainer keycloak;
+
     @Test
-    @Disabled("must be extended to work with podman")
     void shouldStartKeycloakWithTlsSupport() {
-        try (KeycloakContainer keycloak = new KeycloakContainer().useTls().withEnv("TESTCONTAINERS_RYUK_DISABLED","true")) {
+
+            keycloak = new KeycloakContainer();
+            keycloak.useTls().withEnv("TESTCONTAINERS_RYUK_DISABLED","true")
+                    .withAdminUsername("admin")
+                    .withAdminPassword("admin")
+                    .withProviderClassesFrom("target/test-classes");
             keycloak.start();
+
             assertThat(keycloak.getAuthServerUrl()).startsWith("https://");
-        }
     }
 }
