@@ -14,21 +14,25 @@
         <maven.compiler.release>${project.java.version}</maven.compiler.release>
         <maven.compiler.source>${project.java.version}</maven.compiler.source>
         <maven.compiler.target>${project.java.version}</maven.compiler.target>
-        <keycloak.version>21.1.1</keycloak.version>
-        <lombok.version>1.18.26</lombok.version>
-        <junit.version>5.8.2</junit.version>
-        <mockito.version>5.3.1</mockito.version>
-        <jacoco.version>0.8.9</jacoco.version>
-        <surefire.version>3.0.0</surefire.version>
+        <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
+        <jakarta.cdi-api.version>4.0.1</jakarta.cdi-api.version>
+        <keycloak.version>22.0.1</keycloak.version>
+        <lombok.version>1.18.28</lombok.version>
+        <junit.version>5.10.0</junit.version>
+        <mockito.version>5.4.0</mockito.version>
+        <jacoco.version>0.8.10</jacoco.version>
+        <surefire.version>3.1.2</surefire.version>
         <assertj.version>3.24.2</assertj.version>
-        <wiremock.version>3.0.0-beta-8</wiremock.version>
+        <wiremock.version>3.0.0-beta-10</wiremock.version>
+
+
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
-            <version>3.0.1</version>
+            <version>${jakarta.cdi-api.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -85,6 +89,12 @@
             <version>${assertj.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.github.dasniko</groupId>
+            <artifactId>testcontainers-keycloak</artifactId>
+            <version>3.0.0</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -93,7 +103,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.10.1</version>
+                <version>${maven.compiler.plugin.version}</version>
                 <configuration>
                     <compilerArgs>
                         <arg>-sourcepath</arg>
