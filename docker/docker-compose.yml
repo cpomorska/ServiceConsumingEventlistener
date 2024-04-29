@@ -1,0 +1,38 @@
+services:
+  postgres-kc:
+    container_name: postgresql-kc
+    image: 'postgres:15'
+    hostname: 'pgkc'
+    environment:
+      - 'POSTGRES_DB=keycloak'
+      - 'POSTGRES_PASSWORD=keycloak'
+      - 'POSTGRES_USER=keycloak'
+      - 'ADVERTISED_HOST=localhost'
+      - 'ADVERTISED_PORT=25432'
+    ports:
+      - '25432:5432'
+    networks:
+      - keycloak-net
+
+  keycloak:
+    build: .
+    environment:
+      - 'KC_DB=postgres'
+      - 'KC_DB_URL=jdbc:postgresql://postgresql-kc:5432/keycloak'
+      - 'KC_DB_USERNAME=keycloak'
+      - 'KC_DB_PASSWORD=keycloak'
+      - 'KEYCLOAK_ADMIN=admin'
+      - 'KEYCLOAK_ADMIN_PASSWORD=admin'
+    command:
+      - start-dev
+    ports:
+      - "8180:8080"
+    depends_on:
+      - postgres-kc
+    networks:
+      - keycloak-net
+
+networks:
+  keycloak-net:
+    name: keycloak-net
+    driver: bridge

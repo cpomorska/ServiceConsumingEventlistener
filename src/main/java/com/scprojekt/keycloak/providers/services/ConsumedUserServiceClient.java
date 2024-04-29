@@ -28,6 +28,9 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
+/**
+ * A client class used to consume a user service.
+ */
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class ConsumedUserServiceClient {
 

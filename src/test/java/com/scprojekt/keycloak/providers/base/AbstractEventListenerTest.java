@@ -30,7 +30,7 @@ public abstract class AbstractEventListenerTest {
     @Spy
     @InjectMocks
     @Getter
-    public ServiceConsumingEventListenerProviderFactory serviceConsumingEventListenerProviderFactory;
+    public ServiceConsumingEventListenerProviderFactory serviceConsumingEventListenerProviderFactory; 
 
     @Getter
     public ServiceConsumingEventListener serviceConsumingEventlistener;
