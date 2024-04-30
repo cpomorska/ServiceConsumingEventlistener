@@ -140,7 +140,7 @@
                         <argument>build</argument>
                         <argument>--quiet</argument>
                         <argument>-f</argument>
-                        <argument>${project.basedir}/docker/Dockerfile</argument>
+                        <argument>${project.basedir}/docker/Dockerfile.test</argument>
                         <argument>-t</argument>
                         <argument>cpomorska/kceventlistener</argument>
                         <argument>--no-cache</argument>

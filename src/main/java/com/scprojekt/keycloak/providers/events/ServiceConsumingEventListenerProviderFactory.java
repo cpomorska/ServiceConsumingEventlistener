@@ -30,7 +30,7 @@ public class ServiceConsumingEventListenerProviderFactory implements EventListen
                 .clientId(config.get(EventListenerConstants.CONFIG_CLIENTID, ""))
                 .clientSecret(config.get(EventListenerConstants.CONFIG_CLIENTSECRET, ""))
                 .grantType(config.get(EventListenerConstants.CONFIG_GRANTTYPE, ""))
-                .authType(AuthType.valueOf(config.get(EventListenerConstants.CONFIG_AUTHTYPE, "")))
+                .authType(AuthType.BASIC)
                 .build();
 
         consumedUserServiceClient = new ConsumedUserServiceClient(eventListenerConfig);

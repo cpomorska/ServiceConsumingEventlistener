@@ -15,7 +15,9 @@ services:
       - keycloak-net
 
   keycloak:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.test
     environment:
       - 'KC_DB=postgres'
       - 'KC_DB_URL=jdbc:postgresql://postgresql-kc:5432/keycloak'
