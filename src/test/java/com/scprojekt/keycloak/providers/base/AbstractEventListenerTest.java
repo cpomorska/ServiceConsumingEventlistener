@@ -17,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.UUID;
 
+import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -52,8 +53,7 @@ public abstract class AbstractEventListenerTest {
         when(scope.get(EventListenerConstants.CONFIG_CLIENTID, "")).thenReturn(TestConstants.TEST_CLIENTID);
         when(scope.get(EventListenerConstants.CONFIG_CLIENTSECRET, "")).thenReturn(TestConstants.TEST_CLIENTSECRET);
         when(scope.get(EventListenerConstants.CONFIG_GRANTTYPE, "")).thenReturn(TestConstants.TEST_AUTHORIZATION_CODE);
-        when(scope.get(EventListenerConstants.CONFIG_AUTHTYPE, "")).thenReturn(TestConstants.TEST_BASIC);
-        when(scope.get(EventListenerConstants.CONFIG_AUTHTYPE, "")).thenReturn(TestConstants.TEST_BASIC);
+        lenient().when(scope.get(EventListenerConstants.CONFIG_AUTHTYPE, "")).thenReturn(TestConstants.TEST_BASIC);
     }
     private String createUserId(){
         return UUID.randomUUID().toString();
