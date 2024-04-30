@@ -9,7 +9,7 @@ import com.scprojekt.keycloak.providers.domain.AuthType;
 public class EventListenerConfig {
     private String serviceUri;
     private String tokenEndpointUri;
-    private AuthType authType;
+    private AuthType authType = AuthType.BASIC;
     private String userName;
     private String passWord;
     private String clientId;
