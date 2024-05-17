@@ -17,6 +17,7 @@ class EventListenerContainerIT {
         keycloak.useTls().withEnv("TESTCONTAINERS_RYUK_DISABLED", "true")
                 .withAdminUsername("admin")
                 .withAdminPassword("admin")
+                .withRamPercentage(50,50)
                 .withProviderClassesFrom("target/test-classes");
         keycloak.start();
     }
