@@ -24,7 +24,6 @@ class ServiceConsumingEventListenerIT {
                 .withAdminUsername("admin")
                 .withAdminPassword("admin")
                 .withRealmImportFiles("dev-realm.json")
-                .withRamPercentage(50,50)
                 .withProviderClassesFrom("target/classes");
         KEYCLOAK.start();
 
