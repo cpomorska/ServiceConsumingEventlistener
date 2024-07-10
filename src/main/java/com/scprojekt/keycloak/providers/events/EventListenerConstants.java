@@ -3,6 +3,8 @@ package com.scprojekt.keycloak.providers.events;
 public class EventListenerConstants {
 
 
+    public static final String AMPERSAND_STRING = "&";
+    public static final String EQUALS_STRING = "=";
 
     /* Sonar */
     private EventListenerConstants(){}
