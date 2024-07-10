@@ -29,8 +29,6 @@ import static jakarta.ws.rs.core.HttpHeaders.CONTENT_TYPE;
 @AllArgsConstructor(onConstructor_ = @Inject)
 public class ConsumedUserService {
 
-    public static final String AMPERSAND_STRING = "&";
-    public static final String EQUALS_STRING = "=";
     private final ConsumedUserServiceClient consumedUserServiceClient;
 
     public UserServiceToken getUserServiceToken(ServiceUser serviceUser){
@@ -75,7 +73,7 @@ public class ConsumedUserService {
         return postParameters.entrySet()
                 .stream()
                 .filter(e -> e.getValue() != null)
-                .map(e -> e.getKey() + EQUALS_STRING + URLEncoder.encode(e.getValue(), StandardCharsets.UTF_8))
-                .collect(Collectors.joining(AMPERSAND_STRING));
+                .map(e -> e.getKey() + EventListenerConstants.EQUALS_STRING + URLEncoder.encode(e.getValue(), StandardCharsets.UTF_8))
+                .collect(Collectors.joining(EventListenerConstants.AMPERSAND_STRING));
     }
 }
