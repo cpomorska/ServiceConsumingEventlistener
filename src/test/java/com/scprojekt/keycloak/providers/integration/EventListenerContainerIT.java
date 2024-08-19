@@ -1,4 +1,4 @@
-package com.scprojekt.keycloak.providers.services;
+package com.scprojekt.keycloak.providers.integration;
 
 import dasniko.testcontainers.keycloak.KeycloakContainer;
 import org.junit.jupiter.api.AfterAll;
