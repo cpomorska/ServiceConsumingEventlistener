@@ -30,7 +30,7 @@ class ServiceConsumingEventListenerIT {
 
     @BeforeEach
     void init() {
-        keycloakAdminClient = buildAdminClient(KEYCLOAK,"master",null);
+        keycloakAdminClient = buildAdminClient(KEYCLOAK,"development","admin-cli");
     }
 
     @AfterAll
@@ -49,7 +49,7 @@ class ServiceConsumingEventListenerIT {
     Keycloak buildAdminClient(KeycloakContainer keycloak, String realm, String clientid) {
         return KeycloakBuilder.builder()
                 .serverUrl(keycloak.getAuthServerUrl())
-                .realm(realm == null? "master": realm)
+                .realm(realm == null? "development": realm)
                 .clientId(clientid == null? "admin-cli": clientid)
                 .username(keycloak.getAdminUsername())
                 .password(keycloak.getAdminPassword())
