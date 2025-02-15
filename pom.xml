@@ -24,7 +24,7 @@
         <!-- Non-test properties -->
 
         <assertj.version>3.26.3</assertj.version>
-        <wiremock.version>3.9.1</wiremock.version>
+        <wiremock.version>3.12.0</wiremock.version>
 
         <!-- Test properties -->
         <junit.version>5.11.2</junit.version>
@@ -34,6 +34,8 @@
         <testcontainers.keycloak.version>3.5.1</testcontainers.keycloak.version>
         <maven-failsafe-plugin.version>3.5.1</maven-failsafe-plugin.version>
         <keycloak-cassandra-extension.version>4.0.2-25.0</keycloak-cassandra-extension.version>
+        <jetty-server.version>11.0.24</jetty-server.version>
+        <keycloak-admin-client.version>26.0.0</keycloak-admin-client.version>
     </properties>
 
     <dependencies>
@@ -61,22 +63,39 @@
             <artifactId>keycloak-server-spi-private</artifactId>
             <version>${keycloak.version}</version>
             <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-codec</groupId>
+                    <artifactId>commons-codec</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-admin-client</artifactId>
-            <version>26.0.0</version>
+            <version>${keycloak-admin-client.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-io</groupId>
+                    <artifactId>commons-io</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-services</artifactId>
             <version>${keycloak.version}</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>de.arbeitsagentur.opdt</groupId>
-            <artifactId>keycloak-cassandra-extension</artifactId>
-            <version>${keycloak-cassandra-extension.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.protobuf</groupId>
+                    <artifactId>protobuf-java</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.netty</groupId>
+                    <artifactId>netty-common</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -102,6 +121,44 @@
             <artifactId>wiremock</artifactId>
             <version>${wiremock.version}</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-server</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-http</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>commons-io</groupId>
+                    <artifactId>commons-io</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.commons</groupId>
+                    <artifactId>commons-compress</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
+            <version>${jetty-server.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-http</artifactId>
+            <version>${jetty-server.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                    <artifactId>jackson-databind</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                    <artifactId>jackson-coreutils</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
@@ -114,6 +171,17 @@
             <artifactId>testcontainers-keycloak</artifactId>
             <version>${testcontainers.keycloak.version}</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.commons</groupId>
+                    <artifactId>commons-compress</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-compress</artifactId>
+            <version>1.27.1</version>
         </dependency>
     </dependencies>
 
@@ -127,7 +195,9 @@
                 <configuration>
                     <compilerArgs>
                         <arg>-sourcepath</arg>
-                        <arg>${project.basedir}/src/main/java${path.separator}${project.basedir}/target/generated-sources/annotations${path.separator}/</arg>
+                        <arg>
+                            ${project.basedir}/src/main/java${path.separator}${project.basedir}/target/generated-sources/annotations${path.separator}/
+                        </arg>
                     </compilerArgs>
                     <annotationProcessorPaths>
                         <path>
