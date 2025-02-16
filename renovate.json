@@ -11,5 +11,5 @@
   ],
   "timezone": "Europe/Berlin",
   "description": "only on weekends between 3 and 4",
-  "schedule": ["0 3,4 * * 0,6"]
+  "schedule": ["* 3,4 * * 0,6"]
 }
