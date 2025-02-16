@@ -33,7 +33,7 @@
         <surefire.version>3.5.1</surefire.version>
         <testcontainers.keycloak.version>3.5.1</testcontainers.keycloak.version>
         <maven-failsafe-plugin.version>3.5.2</maven-failsafe-plugin.version>
-        <keycloak-cassandra-extension.version>4.0.2-25.0</keycloak-cassandra-extension.version>
+        <keycloak-cassandra-extension.version>5.1.0-26.1</keycloak-cassandra-extension.version>
         <jetty-server.version>11.0.24</jetty-server.version>
         <keycloak-admin-client.version>26.0.0</keycloak-admin-client.version>
     </properties>
