@@ -31,7 +31,7 @@
         <mockito.version>5.14.2</mockito.version>
         <jacoco.version>0.8.12</jacoco.version>
         <surefire.version>3.5.1</surefire.version>
-        <testcontainers.keycloak.version>3.5.1</testcontainers.keycloak.version>
+        <testcontainers.keycloak.version>3.6.0</testcontainers.keycloak.version>
         <maven-failsafe-plugin.version>3.5.2</maven-failsafe-plugin.version>
         <keycloak-cassandra-extension.version>4.0.2-25.0</keycloak-cassandra-extension.version>
         <jetty-server.version>11.0.24</jetty-server.version>
