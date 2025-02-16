@@ -2,5 +2,14 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended"
-  ]
+  ],
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["*"],
+      "automerge": true
+    }
+  ],
+  "timezone": "Europe/Berlin",
+  "description": "only on weekends between 3 and 4",
+  "schedule": ["0 3,4 * * 0,6"]
 }
