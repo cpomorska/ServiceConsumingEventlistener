@@ -35,7 +35,7 @@
         <maven-failsafe-plugin.version>3.5.2</maven-failsafe-plugin.version>
         <keycloak-cassandra-extension.version>4.0.2-25.0</keycloak-cassandra-extension.version>
         <jetty-server.version>11.0.24</jetty-server.version>
-        <keycloak-admin-client.version>26.0.0</keycloak-admin-client.version>
+        <keycloak-admin-client.version>26.0.4</keycloak-admin-client.version>
     </properties>
 
     <dependencies>
