@@ -16,7 +16,7 @@
         <maven.compiler.source>${project.java.version}</maven.compiler.source>
         <maven.compiler.target>${project.java.version}</maven.compiler.target>
         <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
-        <jakarta.cdi-api.version>4.0.1</jakarta.cdi-api.version>
+        <jakarta.cdi-api.version>4.1.0</jakarta.cdi-api.version>
         <keycloak.version>26.1.2</keycloak.version>
         <lombok.version>1.18.36</lombok.version>
         <exec-maven-plugin.version>3.2.0</exec-maven-plugin.version>
