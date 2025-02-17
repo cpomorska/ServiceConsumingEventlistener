@@ -23,7 +23,7 @@
 
         <!-- Non-test properties -->
 
-        <assertj.version>3.26.3</assertj.version>
+        <assertj.version>3.27.3</assertj.version>
         <wiremock.version>3.12.0</wiremock.version>
 
         <!-- Test properties -->
