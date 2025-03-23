@@ -1,4 +1,4 @@
-ARG KC_VERSION=26.1.3
+ARG KC_VERSION=26.1.4
 FROM quay.io/keycloak/keycloak:${KC_VERSION} AS builder
 COPY target/scevl.jar /opt/keycloak/providers
 COPY docker/config/dev-realm.json /opt/keycloak/data/import/
@@ -12,7 +12,7 @@ RUN /opt/keycloak/bin/kc.sh build
 # Enable health and metrics support
 ENV KC_HEALTH_ENABLED=true
 ENV KC_METRICS_ENABLED=true
-ENV KC_DB_URL=jdbc:postgresql://postgresql-kc:5432/keycloak?user=keycloak&password=keycloak
+ENV KC_DB_URL="jdbc:postgresql://postgresql-kc:5432/keycloak?user=keycloak&password=keycloak"
 
 # entrypoint
 ENTRYPOINT ["/opt/keycloak/bin/kc.sh","start","--hostname-strict=false", "--proxy-headers=xforwarded", "--proxy=edge", "--optimized"]

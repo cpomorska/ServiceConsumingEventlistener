@@ -1,5 +1,6 @@
 package com.scprojekt.keycloak.providers.events;
 
+import com.google.auto.service.AutoService;
 import com.scprojekt.keycloak.providers.domain.AuthType;
 import com.scprojekt.keycloak.providers.services.ConsumedUserService;
 import com.scprojekt.keycloak.providers.services.ConsumedUserServiceClient;
@@ -9,6 +10,7 @@ import org.keycloak.events.EventListenerProviderFactory;
 import org.keycloak.models.KeycloakSession;
 import org.keycloak.models.KeycloakSessionFactory;
 
+@AutoService(EventListenerProviderFactory.class)
 public class ServiceConsumingEventListenerProviderFactory implements EventListenerProviderFactory {
 
     EventListenerConfig eventListenerConfig;
