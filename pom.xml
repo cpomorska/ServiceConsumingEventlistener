@@ -19,22 +19,21 @@
         <jakarta.cdi-api.version>4.1.0</jakarta.cdi-api.version>
         <keycloak.version>26.1.4</keycloak.version>
         <lombok.version>1.18.36</lombok.version>
+        <auto-service.version>1.1.1</auto-service.version>
         <exec-maven-plugin.version>3.5.0</exec-maven-plugin.version>
 
         <!-- Non-test properties -->
-
+        <!-- Test properties -->
         <assertj.version>3.27.3</assertj.version>
         <wiremock.version>3.12.1</wiremock.version>
-
-        <!-- Test properties -->
-        <junit.version>5.12.1</junit.version>
-        <mockito.version>5.16.1</mockito.version>
+        <junit.version>5.12.0</junit.version>
+        <mockito.version>5.15.2</mockito.version>
         <jacoco.version>0.8.12</jacoco.version>
         <surefire.version>3.5.2</surefire.version>
         <testcontainers.keycloak.version>3.6.0</testcontainers.keycloak.version>
         <maven-failsafe-plugin.version>3.5.2</maven-failsafe-plugin.version>
         <keycloak-cassandra-extension.version>5.1.0-26.1</keycloak-cassandra-extension.version>
-        <jetty-server.version>11.0.24</jetty-server.version>
+        <jetty-server.version>11.0.25</jetty-server.version>
         <keycloak-admin-client.version>26.0.4</keycloak-admin-client.version>
     </properties>
 
@@ -98,6 +97,12 @@
             </exclusions>
         </dependency>
         <dependency>
+            <groupId>com.google.auto.service</groupId>
+            <artifactId>auto-service</artifactId>
+            <version>${auto-service.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
@@ -123,14 +128,19 @@
             <scope>test</scope>
             <exclusions>
                 <exclusion>
-                    <groupId>commons-io</groupId>
-                    <artifactId>commons-io</artifactId>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-server</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.apache.commons</groupId>
-                    <artifactId>commons-compress</artifactId>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-http</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
+            <version>${jetty-server.version}</version>
         </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
@@ -176,6 +186,11 @@
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
                             <version>${lombok.version}</version>
+                        </path>
+                        <path>
+                            <groupId>com.google.auto.service</groupId>
+                            <artifactId>auto-service</artifactId>
+                            <version>${auto-service.version}</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
