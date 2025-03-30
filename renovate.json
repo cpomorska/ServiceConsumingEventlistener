@@ -10,7 +10,14 @@
       "matchPackageNames": [
         "*"
       ]
+    },
+    {
+      "matchPackageNames": [
+        "jetty-server"
+      ],
+      "allowedVersions": "^11.0.0"
     }
+
   ],
   "timezone": "Europe/Berlin",
   "description": "only on weekends between 3 and 4",
