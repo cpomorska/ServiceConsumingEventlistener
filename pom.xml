@@ -28,7 +28,7 @@
         <wiremock.version>3.12.1</wiremock.version>
         <junit.version>5.12.2</junit.version>
         <mockito.version>5.17.0</mockito.version>
-        <jacoco.version>0.8.12</jacoco.version>
+        <jacoco.version>0.8.13</jacoco.version>
         <surefire.version>3.5.3</surefire.version>
         <testcontainers.keycloak.version>3.6.0</testcontainers.keycloak.version>
         <maven-failsafe-plugin.version>3.5.3</maven-failsafe-plugin.version>
