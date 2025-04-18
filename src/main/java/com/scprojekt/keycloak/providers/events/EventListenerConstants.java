@@ -17,6 +17,13 @@ public class EventListenerConstants {
     public static final String X_WWW_FORM_URLENCODED = "application/x-www-form-urlencoded";
     public static final String DISABLE_HOSTNAME_VERIFICATION = "jdk.internal.httpclient.disableHostnameVerification";
 
+    /* SSL/TLS Configuration */
+    public static final String CONFIG_KEYSTORE_PATH = "keystore_path";
+    public static final String CONFIG_KEYSTORE_PASSWORD = "keystore_password";
+    public static final String CONFIG_TRUSTSTORE_PATH = "truststore_path";
+    public static final String CONFIG_TRUSTSTORE_PASSWORD = "truststore_password";
+    public static final String CONFIG_SSL_VERIFICATION_ENABLED = "ssl_verification_enabled";
+
     /* Keycloak */
     public static final String EXCLUDE_EVENTS = "exclude-events";
     public static final String EXCLUDE_OPERATIONS = "excludesOperations";
