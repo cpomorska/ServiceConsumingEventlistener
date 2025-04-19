@@ -22,7 +22,7 @@ import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.mock;
 
 @ExtendWith(MockitoExtension.class)
-public class ConsumedUserServiceTest {
+class ConsumedUserServiceTest {
 
     @Mock
     private ConsumedUserServiceClient consumedUserServiceClient;
