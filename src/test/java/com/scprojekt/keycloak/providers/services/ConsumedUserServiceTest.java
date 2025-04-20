@@ -22,7 +22,7 @@ import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.mock;
 
 @ExtendWith(MockitoExtension.class)
-public class ConsumedUserServiceTest {
+class ConsumedUserServiceTest {
 
     @Mock
     private ConsumedUserServiceClient consumedUserServiceClient;
@@ -82,5 +82,30 @@ public class ConsumedUserServiceTest {
 
         assertEquals(Requeststatus.TOKEN_ERROR, result.getRequeststatus());
         assertEquals(null, result.getServiceUserToken());
+    }
+
+    @Test
+    void testGetUserServiceTokenWithHttps() throws Exception {
+        // Override the service URI to use HTTPS
+        EventListenerConfig eventListenerConfig = consumedUserServiceClient.getEventListenerConfig();
+        when(eventListenerConfig.getServiceUri()).thenReturn("https://secure.example.com");
+
+        // Prepare HTTP response mock
+        @SuppressWarnings("unchecked")
+        HttpResponse<String> responseMock = (HttpResponse<String>) mock(HttpResponse.class);
+        when(responseMock.statusCode()).thenReturn(200);
+        when(responseMock.body()).thenReturn("{\"requeststatus\":\"TOKEN_FOUND\",\"serviceUserToken\":\"secure-token\"}");
+
+        // Configure HTTP client mock
+        when(httpClient.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class))).thenReturn(responseMock);
+
+        // Configure ObjectMapper mock
+        ObjectMapper objectMapper = new ObjectMapper();
+        when(consumedUserServiceClient.getObjectMapper()).thenReturn(objectMapper);
+
+        UserServiceToken result = consumedUserService.getUserServiceToken(serviceUser, "456");
+
+        assertEquals(Requeststatus.TOKEN_FOUND, result.getRequeststatus());
+        assertEquals("secure-token", result.getServiceUserToken());
     }
 }

@@ -54,6 +54,9 @@ public abstract class AbstractEventListenerTest {
         when(scope.get(EventListenerConstants.CONFIG_CLIENTSECRET, "")).thenReturn(TestConstants.TEST_CLIENTSECRET);
         when(scope.get(EventListenerConstants.CONFIG_GRANTTYPE, "")).thenReturn(TestConstants.TEST_AUTHORIZATION_CODE);
         lenient().when(scope.get(EventListenerConstants.CONFIG_AUTHTYPE, "")).thenReturn(TestConstants.TEST_BASIC);
+        lenient().when(scope.get(EventListenerConstants.CONFIG_KEYSTORE_PATH, "")).thenReturn("tls/server.keystore");
+        lenient().when(scope.get(EventListenerConstants.CONFIG_KEYSTORE_PASSWORD, "")).thenReturn("password");
+        lenient().when(scope.getBoolean(EventListenerConstants.CONFIG_SSL_VERIFICATION_ENABLED, false)).thenReturn(false);
     }
     private String createUserId(){
         return UUID.randomUUID().toString();

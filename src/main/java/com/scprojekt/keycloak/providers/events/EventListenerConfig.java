@@ -16,4 +16,12 @@ public class EventListenerConfig {
     private String clientId;
     private String clientSecret;
     private String grantType;
+
+    // SSL/TLS Configuration
+    private String keystorePath;
+    private String keystorePassword;
+    private String truststorePath;
+    private String truststorePassword;
+    @Builder.Default
+    private boolean sslVerificationEnabled = true;
 }
