@@ -10,6 +10,7 @@ RUN keytool -genkeypair -storepass password -storetype PKCS12 -keyalg RSA -keysi
 
 RUN /opt/keycloak/bin/kc.sh build --health-enabled=true --db=postgres --metrics-enabled=true --features-disabled=admin
 
+
 # Enable health and metrics support
 ENV KC_HEALTH_ENABLED=true
 ENV KC_METRICS_ENABLED=true
