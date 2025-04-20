@@ -14,6 +14,7 @@ import org.jboss.logging.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.Socket;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.net.http.HttpClient;
@@ -22,21 +23,15 @@ import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.security.KeyManagementException;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.UnrecoverableKeyException;
+import java.security.*;
 import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.time.Duration;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
-import javax.net.ssl.KeyManagerFactory;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLParameters;
-import javax.net.ssl.TrustManagerFactory;
+import javax.net.ssl.*;
 
 /**
  * A client class used to consume a user service.
@@ -70,26 +65,27 @@ public class ConsumedUserServiceClient {
         try {
             HttpClient.Builder httpClientBuilder = HttpClient.newBuilder()
                     .connectTimeout(CONNECT_TIMEOUT);
+            // Configure hostname verification
+            if (!eventListenerConfig.isSslVerificationEnabled()) {
+                LOG.warn("SSL hostname verification is disabled. This is not recommended for production environments.");
+                System.setProperty(EventListenerConstants.DISABLE_HOSTNAME_VERIFICATION, Boolean.TRUE.toString());
 
-            // Configure SSL/TLS if keystore path is provided
+                SSLContext sslContext = createTestSSLContext();
+                SSLParameters sslParameters = new SSLParameters();
+
+                httpClientBuilder.sslContext(sslContext)
+                        .sslParameters(sslParameters);
+            }
+
             if (eventListenerConfig.getKeystorePath() != null && !eventListenerConfig.getKeystorePath().isEmpty()) {
                 try {
                     SSLContext sslContext = createSSLContext();
                     SSLParameters sslParameters = new SSLParameters();
-
-                    // Configure hostname verification
-                    if (!eventListenerConfig.isSslVerificationEnabled()) {
-                        LOG.warn("SSL hostname verification is disabled. This is not recommended for production environments.");
-                        System.setProperty(EventListenerConstants.DISABLE_HOSTNAME_VERIFICATION, Boolean.TRUE.toString());
-                    }
-
                     httpClientBuilder.sslContext(sslContext)
                                     .sslParameters(sslParameters);
-
                     LOG.info("SSL/TLS support configured with keystore: " + eventListenerConfig.getKeystorePath());
                 } catch (Exception e) {
                     LOG.error("Failed to configure SSL/TLS support: " + e.getMessage(), e);
-                    // Continue without SSL/TLS if configuration fails
                 }
             }
 
@@ -98,7 +94,48 @@ public class ConsumedUserServiceClient {
         } catch (IOException | InterruptedException e) {
             LOG.error("Failed to create authorization header", e);
             throw new RuntimeException("Failed to initialize client: " + e.getMessage(), e);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        } catch (KeyManagementException e) {
+            throw new RuntimeException(e);
         }
+    }
+
+    private SSLContext createTestSSLContext() throws NoSuchAlgorithmException, KeyManagementException {
+        var trustManager = new X509ExtendedTrustManager() {
+            @Override
+            public X509Certificate[] getAcceptedIssuers() {
+                return new X509Certificate[]{};
+            }
+
+            @Override
+            public void checkClientTrusted(X509Certificate[] chain, String authType) {
+            }
+
+            @Override
+            public void checkServerTrusted(X509Certificate[] chain, String authType) {
+            }
+
+            @Override
+            public void checkClientTrusted(X509Certificate[] chain, String authType, Socket socket) {
+            }
+
+            @Override
+            public void checkServerTrusted(X509Certificate[] chain, String authType, Socket socket) {
+            }
+
+            @Override
+            public void checkClientTrusted(X509Certificate[] chain, String authType, SSLEngine engine) {
+            }
+
+            @Override
+            public void checkServerTrusted(X509Certificate[] chain, String authType, SSLEngine engine) {
+            }
+        };
+        var sslContext = SSLContext.getInstance("TLS");
+        sslContext.init(null, new TrustManager[]{trustManager}, new SecureRandom());
+
+        return sslContext;
     }
 
     private SSLContext createSSLContext() throws NoSuchAlgorithmException, KeyStoreException, 

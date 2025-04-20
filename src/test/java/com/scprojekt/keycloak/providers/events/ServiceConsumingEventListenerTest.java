@@ -72,7 +72,7 @@ class ServiceConsumingEventListenerTest extends AbstractEventListenerTest {
     void shouldReactToIdentityProviderFirstLoginEventTokenNotFound() {
         // given
         Event testEvent = this.createEvent(EventType.IDENTITY_PROVIDER_FIRST_LOGIN);
-        stubFor(post(TestConstants.WIREMOCK_USERSERVICE).withHost(equalTo(TestConstants.WIREMOCK_LOCALHOST +":"+ wireMockExtension.getHttpsPort())).willReturn(ok(createUserServiceToken(Requeststatus.TOKEN_ERROR, ""))));
+        stubFor(post(TestConstants.WIREMOCK_USERSERVICE).withHost(equalTo(TestConstants.WIREMOCK_LOCALHOST)).withPort(wireMockExtension.getHttpsPort()).willReturn(ok(createUserServiceToken(Requeststatus.TOKEN_ERROR, ""))));
 
         // when
         serviceConsumingEventlistener.onEvent(testEvent);
@@ -101,6 +101,7 @@ class ServiceConsumingEventListenerTest extends AbstractEventListenerTest {
                 .build());
     }
 
+    @Override
     public void createTestEventConfig() {
         when(scope.get(EventListenerConstants.CONFIG_SERVICE_URI, "")).thenReturn("https://localhost:"+wireMockExtension.getHttpsPort() +"/userservice");
         when(scope.get(EventListenerConstants.CONFIG_ENDPOINT_URI, "")).thenReturn(TestConstants.LOCALHOST_TOKENSERVICE);

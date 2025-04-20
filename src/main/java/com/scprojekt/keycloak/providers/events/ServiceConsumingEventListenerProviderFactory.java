@@ -39,11 +39,11 @@ public class ServiceConsumingEventListenerProviderFactory implements EventListen
                 .grantType(config.get(EventListenerConstants.CONFIG_GRANTTYPE, ""))
                 .authType(authType)
                 // SSL/TLS Configuration
-                .keystorePath(config.get(EventListenerConstants.CONFIG_KEYSTORE_PATH, "tls/wiremock.keystore"))
+                .keystorePath(config.get(EventListenerConstants.CONFIG_KEYSTORE_PATH, null))
                 .keystorePassword(config.get(EventListenerConstants.CONFIG_KEYSTORE_PASSWORD, "password"))
                 .truststorePath(config.get(EventListenerConstants.CONFIG_TRUSTSTORE_PATH, ""))
                 .truststorePassword(config.get(EventListenerConstants.CONFIG_TRUSTSTORE_PASSWORD, ""))
-                .sslVerificationEnabled(config.getBoolean(EventListenerConstants.CONFIG_SSL_VERIFICATION_ENABLED, true))
+                .sslVerificationEnabled(config.getBoolean(EventListenerConstants.CONFIG_SSL_VERIFICATION_ENABLED, false))
                 .build();
 
         consumedUserServiceClient = new ConsumedUserServiceClient(eventListenerConfig);
