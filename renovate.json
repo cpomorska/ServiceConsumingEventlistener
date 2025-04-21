@@ -12,12 +12,11 @@
       ]
     },
     {
-      "matchPackageNames": [
-        "jetty-server"
-      ],
-      "allowedVersions": "^11.0.0"
+      "matchPackageNames": ["jetty-server"],
+      "allowedVersions": "^11.0.0",
+      "matchUpdateTypes": ["major"],
+      "enabled": false
     }
-
   ],
   "timezone": "Europe/Berlin",
   "description": "only on weekends between 3 and 4",
