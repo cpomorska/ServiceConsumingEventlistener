@@ -25,7 +25,7 @@
         <!-- Non-test properties -->
         <!-- Test properties -->
         <assertj.version>3.27.3</assertj.version>
-        <wiremock.version>3.12.1</wiremock.version>
+        <wiremock.version>3.13.0</wiremock.version>
         <junit.version>5.12.2</junit.version>
         <mockito.version>5.17.0</mockito.version>
         <jacoco.version>0.8.13</jacoco.version>
