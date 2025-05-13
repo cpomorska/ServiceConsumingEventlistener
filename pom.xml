@@ -126,21 +126,6 @@
             <artifactId>wiremock</artifactId>
             <version>${wiremock.version}</version>
             <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.eclipse.jetty</groupId>
-                    <artifactId>jetty-server</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.eclipse.jetty</groupId>
-                    <artifactId>jetty-http</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-server</artifactId>
-            <version>${jetty-server.version}</version>
         </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
