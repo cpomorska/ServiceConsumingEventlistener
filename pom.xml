@@ -33,7 +33,7 @@
         <testcontainers.keycloak.version>3.7.0</testcontainers.keycloak.version>
         <maven-failsafe-plugin.version>3.5.3</maven-failsafe-plugin.version>
         <keycloak-cassandra-extension.version>5.1.0-26.1</keycloak-cassandra-extension.version>
-        <jetty-server.version>12.0.20</jetty-server.version>
+        <jetty-server.version>11.0.25</jetty-server.version>
         <keycloak-admin-client.version>26.0.5</keycloak-admin-client.version>
     </properties>
 
