@@ -1,4 +1,4 @@
-ARG KC_VERSION=26.3.1
+ARG KC_VERSION=26.3.2
 FROM quay.io/keycloak/keycloak:${KC_VERSION} AS builder
 COPY target/scevl.jar /opt/keycloak/providers
 COPY docker/config/development-realm.json /opt/keycloak/data/import/
