@@ -27,7 +27,7 @@
         <assertj.version>3.27.6</assertj.version>
         <wiremock.version>3.13.1</wiremock.version>
         <junit.version>5.14.0</junit.version>
-        <mockito.version>5.19.0</mockito.version>
+        <mockito.version>5.20.0</mockito.version>
         <jacoco.version>0.8.14</jacoco.version>
         <surefire.version>3.5.4</surefire.version>
         <testcontainers.keycloak.version>3.9.0</testcontainers.keycloak.version>
