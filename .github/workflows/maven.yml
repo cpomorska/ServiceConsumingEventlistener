@@ -21,9 +21,9 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
-            java: 17
-          - os: ubuntu-latest
             java: 21
+          - os: ubuntu-latest
+            java: 25
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v5

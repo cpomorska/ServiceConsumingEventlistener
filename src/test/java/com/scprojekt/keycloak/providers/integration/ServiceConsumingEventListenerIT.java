@@ -16,7 +16,7 @@ class ServiceConsumingEventListenerIT {
 
     @BeforeAll
     static void beforeAll(){
-        KEYCLOAK = new KeycloakContainer("quay.io/keycloak/keycloak:latest");
+        KEYCLOAK = new KeycloakContainer();
         KEYCLOAK
                 //.withEnv("TESTCONTAINERS_RYUK_DISABLED", "true")
                 .withCreateContainerCmdModifier(cmd -> cmd.withName("scevl-keycloak-integration-test"))
