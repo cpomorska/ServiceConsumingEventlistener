@@ -13,9 +13,7 @@
     },
     {
       "matchPackageNames": ["jetty-server"],
-      "allowedVersions": "^11.0.0",
-      "matchUpdateTypes": ["major"],
-      "enabled": false
+      "allowedVersions": "<=11.0.25"
     }
   ],
   "timezone": "Europe/Berlin",
