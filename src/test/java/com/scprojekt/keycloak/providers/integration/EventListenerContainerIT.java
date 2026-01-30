@@ -2,34 +2,43 @@ package com.scprojekt.keycloak.providers.integration;
 
 import dasniko.testcontainers.keycloak.KeycloakContainer;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.testcontainers.DockerClientFactory;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 
 class EventListenerContainerIT {
-    private static KeycloakContainer keycloak;
+    private static KeycloakContainer KEYCLOAK;
 
     @BeforeAll
     static void setUp() {
-        keycloak = new KeycloakContainer();
-        keycloak.useTls().withEnv("TESTCONTAINERS_RYUK_DISABLED", "true")
+        Assumptions.assumeTrue(
+                DockerClientFactory.instance().isDockerAvailable(),
+                "Docker is not available - skipping integration tests"
+        );
+        KEYCLOAK = new KeycloakContainer("quay.io/keycloak/keycloak:26.5.2");
+        KEYCLOAK
+                .withEnv("TESTCONTAINERS_RYUK_DISABLED", "true")
+                .withCreateContainerCmdModifier(cmd -> cmd.withName("scevl-keycloak-integration-test"))
                 .withAdminUsername("admin")
                 .withAdminPassword("admin")
-                .withProviderClassesFrom("target/test-classes");
-        keycloak.start();
+                .withRealmImportFiles("dev-realm.json")
+                .withProviderClassesFrom("target/classes");
+        KEYCLOAK.start();
     }
 
     @Test
     void shouldStartKeycloakWithTlsSupport() {
-        assertThat(keycloak.getAuthServerUrl()).startsWith("https://");
+        assertThat(KEYCLOAK.getAuthServerUrl()).startsWith("https://");
     }
 
     @AfterAll
     static void tearDown() {
-        if (keycloak.isRunning()) {
-            keycloak.stop();
+        if (KEYCLOAK != null && KEYCLOAK.isRunning()) {
+            KEYCLOAK.stop();
         }
     }
 }
