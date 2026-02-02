@@ -1,7 +1,7 @@
 services:
   postgres-kc:
     container_name: postgresql-kc
-    image: 'postgres:17'
+    image: 'postgres:18'
     hostname: 'pgkc'
     environment:
       - 'POSTGRES_DB=keycloak'
