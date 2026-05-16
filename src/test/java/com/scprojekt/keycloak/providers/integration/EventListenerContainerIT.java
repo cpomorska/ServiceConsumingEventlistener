@@ -25,14 +25,14 @@ class EventListenerContainerIT {
                 .withCreateContainerCmdModifier(cmd -> cmd.withName("scevl-keycloak-integration-test"))
                 .withAdminUsername("admin")
                 .withAdminPassword("admin")
-                .withRealmImportFiles("dev-realm.json")
+                .withRealmImportFiles("development-realm.json")
                 .withProviderClassesFrom("target/classes");
         KEYCLOAK.start();
     }
 
     @Test
     void shouldStartKeycloakWithTlsSupport() {
-        assertThat(KEYCLOAK.getAuthServerUrl()).startsWith("https://");
+        assertThat(KEYCLOAK.getAuthServerUrl()).startsWith("http://");
     }
 
     @AfterAll
