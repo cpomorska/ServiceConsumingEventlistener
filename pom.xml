@@ -11,31 +11,52 @@
     <properties>
         <!-- Project properties -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.java.version>17</project.java.version>
+        <project.java.version>21</project.java.version>
         <maven.compiler.release>${project.java.version}</maven.compiler.release>
         <maven.compiler.source>${project.java.version}</maven.compiler.source>
         <maven.compiler.target>${project.java.version}</maven.compiler.target>
-        <maven.compiler.plugin.version>3.14.1</maven.compiler.plugin.version>
+        <maven.compiler.plugin.version>3.15.0</maven.compiler.plugin.version>
         <jakarta.cdi-api.version>4.1.0</jakarta.cdi-api.version>
-        <keycloak.version>26.4.5</keycloak.version>
-        <lombok.version>1.18.42</lombok.version>
+        <keycloak.version>26.6.4</keycloak.version>
+        <lombok.version>1.18.46</lombok.version>
         <auto-service.version>1.1.1</auto-service.version>
-        <exec-maven-plugin.version>3.6.2</exec-maven-plugin.version>
+        <exec-maven-plugin.version>3.6.3</exec-maven-plugin.version>
 
         <!-- Non-test properties -->
         <!-- Test properties -->
-        <assertj.version>3.27.6</assertj.version>
+        <assertj.version>3.27.7</assertj.version>
         <wiremock.version>3.13.2</wiremock.version>
-        <junit.version>5.14.1</junit.version>
-        <mockito.version>5.20.0</mockito.version>
-        <jacoco.version>0.8.14</jacoco.version>
-        <surefire.version>3.5.4</surefire.version>
-        <testcontainers.keycloak.version>3.9.0</testcontainers.keycloak.version>
-        <maven-failsafe-plugin.version>3.5.4</maven-failsafe-plugin.version>
+        <junit.version>6.1.0</junit.version>
+        <mockito.version>5.23.0</mockito.version>
+        <jacoco.version>0.8.15</jacoco.version>
+        <surefire.version>3.5.6</surefire.version>
+        <testcontainers.keycloak.version>4.2.1</testcontainers.keycloak.version>
+        <maven-failsafe-plugin.version>3.5.6</maven-failsafe-plugin.version>
         <keycloak-cassandra-extension.version>5.1.0-26.1</keycloak-cassandra-extension.version>
         <jetty-server.version>11.0.25</jetty-server.version>
-        <keycloak-admin-client.version>26.0.7</keycloak-admin-client.version>
+        <keycloak-admin-client.version>26.0.9</keycloak-admin-client.version>
+        <jackson.version>2.20</jackson.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>2.22</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>2.22.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>2.22.0</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <!-- Project dependencies -->
@@ -178,6 +199,8 @@
                             <version>${auto-service.version}</version>
                         </path>
                     </annotationProcessorPaths>
+                    <source>25</source>
+                    <target>25</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -236,8 +259,8 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${surefire.version}</version>
                 <configuration>
-                    <forkCount>0</forkCount>
-                    <reuseForks>false</reuseForks>
+                    <forkCount>1</forkCount>
+                    <reuseForks>true</reuseForks>
                     <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
                 </configuration>
             </plugin>
@@ -246,8 +269,8 @@
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>${maven-failsafe-plugin.version}</version>
                 <configuration>
-                    <skipTests>true</skipTests>
-                    <forkCount>0</forkCount>
+                    <skipTests>false</skipTests>
+                    <forkCount>1</forkCount>
                     <reuseForks>false</reuseForks>
                     <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
 

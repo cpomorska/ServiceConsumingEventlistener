@@ -5,6 +5,7 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.Test;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.KeycloakBuilder;
+import org.testcontainers.DockerClientFactory;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -16,13 +17,16 @@ class ServiceConsumingEventListenerIT {
 
     @BeforeAll
     static void beforeAll(){
-        KEYCLOAK = new KeycloakContainer();
+        Assumptions.assumeTrue(
+            DockerClientFactory.instance().isDockerAvailable(),
+            "Docker is not available - skipping integration tests"
+        );
+        KEYCLOAK = new KeycloakContainer("quay.io/keycloak/keycloak:latest");
         KEYCLOAK
-                //.withEnv("TESTCONTAINERS_RYUK_DISABLED", "true")
                 .withCreateContainerCmdModifier(cmd -> cmd.withName("scevl-keycloak-integration-test"))
                 .withAdminUsername("admin")
                 .withAdminPassword("admin")
-                .withRealmImportFiles("dev-realm.json")
+                .withRealmImportFiles("development-realm.json")
                 .withProviderClassesFrom("target/classes");
         KEYCLOAK.start();
 
@@ -35,7 +39,7 @@ class ServiceConsumingEventListenerIT {
 
     @AfterAll
     static void teardown(){
-        if(KEYCLOAK.isRunning()) {
+        if(KEYCLOAK != null && KEYCLOAK.isRunning()) {
             KEYCLOAK.stop();
         }
     }
