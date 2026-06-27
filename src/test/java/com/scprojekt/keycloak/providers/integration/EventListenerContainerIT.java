@@ -11,6 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 class EventListenerContainerIT {
+
     private static KeycloakContainer KEYCLOAK;
 
     @BeforeAll
@@ -19,19 +20,21 @@ class EventListenerContainerIT {
                 DockerClientFactory.instance().isDockerAvailable(),
                 "Docker is not available - skipping integration tests"
         );
-        KEYCLOAK = new KeycloakContainer("quay.io/keycloak/keycloak:26.5.2");
-        KEYCLOAK
-                .withEnv("TESTCONTAINERS_RYUK_DISABLED", "true")
+
+        KEYCLOAK = new KeycloakContainer("quay.io/keycloak/keycloak:latest")
+                .withNetworkAliases("keycloak")
                 .withCreateContainerCmdModifier(cmd -> cmd.withName("scevl-keycloak-integration-test"))
-                .withAdminUsername("admin")
-                .withAdminPassword("admin")
-                .withRealmImportFiles("dev-realm.json")
+                .withEnv("KEYCLOAK_ADMIN", "admin")
+                .withEnv("KEYCLOAK_ADMIN_PASSWORD", "admin")
+                .withEnv("KC_DB", "dev-mem")
+                .withRealmImportFiles("development-realm.json")
+                .useTls()
                 .withProviderClassesFrom("target/classes");
         KEYCLOAK.start();
     }
 
     @Test
-    void shouldStartKeycloakWithTlsSupport() {
+    void shouldStartKeycloakWithHttps() {
         assertThat(KEYCLOAK.getAuthServerUrl()).startsWith("https://");
     }
 

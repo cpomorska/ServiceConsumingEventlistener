@@ -11,7 +11,7 @@
     <properties>
         <!-- Project properties -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.java.version>17</project.java.version>
+        <project.java.version>21</project.java.version>
         <maven.compiler.release>${project.java.version}</maven.compiler.release>
         <maven.compiler.source>${project.java.version}</maven.compiler.source>
         <maven.compiler.target>${project.java.version}</maven.compiler.target>
@@ -199,6 +199,8 @@
                             <version>${auto-service.version}</version>
                         </path>
                     </annotationProcessorPaths>
+                    <source>25</source>
+                    <target>25</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -257,8 +259,8 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${surefire.version}</version>
                 <configuration>
-                    <forkCount>0</forkCount>
-                    <reuseForks>false</reuseForks>
+                    <forkCount>1</forkCount>
+                    <reuseForks>true</reuseForks>
                     <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
                 </configuration>
             </plugin>
@@ -267,8 +269,8 @@
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>${maven-failsafe-plugin.version}</version>
                 <configuration>
-                    <skipTests>true</skipTests>
-                    <forkCount>0</forkCount>
+                    <skipTests>false</skipTests>
+                    <forkCount>1</forkCount>
                     <reuseForks>false</reuseForks>
                     <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
 
