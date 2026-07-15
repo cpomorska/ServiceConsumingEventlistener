@@ -21,9 +21,8 @@ class ServiceConsumingEventListenerIT {
             DockerClientFactory.instance().isDockerAvailable(),
             "Docker is not available - skipping integration tests"
         );
-        KEYCLOAK = new KeycloakContainer("quay.io/keycloak/keycloak:26.5.2");
+        KEYCLOAK = new KeycloakContainer("quay.io/keycloak/keycloak:latest");
         KEYCLOAK
-                .withEnv("TESTCONTAINERS_RYUK_DISABLED", "true")
                 .withCreateContainerCmdModifier(cmd -> cmd.withName("scevl-keycloak-integration-test"))
                 .withAdminUsername("admin")
                 .withAdminPassword("admin")
